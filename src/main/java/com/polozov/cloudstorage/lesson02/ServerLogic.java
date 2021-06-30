@@ -80,7 +80,12 @@ public class ServerLogic{
         if (!Files.exists(deletePath)) {
             throw new NoSuchFileException("file or directory does not exist\r\n");
         } else {
-            Files.delete(deletePath); //В этом месте, если пытаемся удалить непустой каталог, сгенерится DirectoryNotEmptyException
+            try {
+                Files.delete(deletePath); //В этом месте, если пытаемся удалить непустой каталог,
+                                          // сгенерится DirectoryNotEmptyException
+            } catch (DirectoryNotEmptyException e) {
+                return "directory is not empty, delete anyway? Y/N\r\n";
+            }
         }
         return "deleted\r\n";
     }
@@ -115,7 +120,7 @@ public class ServerLogic{
 
     public void copy (String source, String destination) throws IllegalArgumentException, IOException {
         Path sourcePath = Paths.get(currentPath.toString() + File.separator + source);
-        Path destinationPath = Paths.get(rootPath.toString() + File.separator + destination);
+        Path destinationPath = Paths.get(currentPath.toString() + File.separator + destination);
         if (!Files.exists(sourcePath)) {
             throw new IllegalArgumentException("source not found");
         } else {

@@ -203,9 +203,10 @@ public class NioTelnetServer {
                             break;
 
                     }
+/*
                 } catch (DirectoryNotEmptyException e) {
                     result.add("directory is not empty, delete anyway? Y/N\r\n"); //Посылаем пользователю вопрос
-
+*/
                 } catch (Exception e) {  //Могут быть исключения FileAlreadyExistsException, NoSuchFileException,
                                          // IllegalArgumentException
                                          //но обработка одна - отправляем пользователю сообщение
